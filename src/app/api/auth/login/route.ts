@@ -5,10 +5,11 @@ import { cookies } from "next/headers";
 export const POST = async (request: NextRequest) => {
   const body = await request.json().catch(() => null);
 
-  if (body.email === "admin" && body.password === "admin") {
+  if (body.email === "admin@admin.com" && body.password === "admin") {
     const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
     console.log("secret: ", secret);
+    
     const alg = "HS256";
     const typ = "JWT";
 
