@@ -3,7 +3,8 @@ import * as jose from "jose";
 import { cookies } from "next/headers";
 
 export const POST = async (request: NextRequest) => {
-  const body = await request.json().catch(() => null);
+  // const body = await request.json().catch(() => null);
+  const body = await request.json();
 
   if (body.email === "admin@admin.com" && body.password === "admin") {
 

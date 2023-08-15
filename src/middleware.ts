@@ -15,6 +15,7 @@ export async function middleware(request: NextRequest) {
     // url.pathname = '/'
     // return NextResponse.rewrite(url);
     return NextResponse.rewrite(new URL("/signin", request.url));
+    // return NextResponse.redirect("/login");
   } else {
     const { payload, protectedHeader } = await jose.jwtVerify(jwt, secret);
     const headers = new Headers(request.headers);
