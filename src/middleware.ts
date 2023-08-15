@@ -35,3 +35,8 @@ export async function middleware(request: NextRequest) {
 // export const config = {
 //   matcher: ["/api*"],
 // };
+
+//from NEXT docs
+// const config = {
+//   matcher: "/feedback/((?!general).*)",
+// };
