@@ -6,19 +6,22 @@ import * as jose from "jose";
 export async function middleware(request: NextRequest) {
   let jwt = request.cookies.get("token")?.value;
 
-  console.log("token: ", jwt);
+  console.log("middleware JWT : ", jwt);
 
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
   if (!jwt) {
-    // return NextResponse.redirect("/");
+    // const url = request.nextUrl.clone();
+    // url.pathname = '/'
+    // return NextResponse.rewrite(url);
+    return NextResponse.rewrite(new URL("/signin", request.url));
   } else {
     const { payload, protectedHeader } = await jose.jwtVerify(jwt, secret);
     const headers = new Headers(request.headers);
     headers.set("user", JSON.stringify(payload.email));
 
-    console.log(protectedHeader);
-    console.log(payload);
+    console.log("middleware protectedHeader: ", protectedHeader);
+    console.log("middleware payload: ", payload);
     return NextResponse.next({
       request: {
         headers: headers,

@@ -6,9 +6,10 @@ export const POST = async (request: NextRequest) => {
   const body = await request.json().catch(() => null);
 
   if (body.email === "admin@admin.com" && body.password === "admin") {
+
     const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
-    console.log("secret: ", secret);
+    console.log("login route SECRET: ", secret);
     
     const alg = "HS256";
     const typ = "JWT";
@@ -27,11 +28,13 @@ export const POST = async (request: NextRequest) => {
       httpOnly: true,
     });
 
-    console.log(`jwt token`, jwt);
+    console.log(`login route JWT : `, jwt);
+    console.log(`login route cookies : `,cookies().get("JWT")?.value );
+
     return NextResponse.json({ message: "Login success" });
   }
 
-  return NextResponse.json({ message: "Hello World!" });
+  return NextResponse.json({ message: "Required Input Not Provided" });
 };
 
 
